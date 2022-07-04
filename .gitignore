@@ -3,5 +3,3 @@
 # non public
 DatabaseConfig.php
 SecurityService.php
-
-routes.php

@@ -2,38 +2,14 @@
 
 namespace models;
 
-class Role
+use models\database\DatabaseField;
+use models\database\DatabaseModel;
+
+class Role extends DatabaseModel
 {
-    private int $id;
     private string $name;
     private array $permissions;
 
-    /**
-     * Role constructor.
-     * @param string $name
-     * @param array $permissions
-     */
-    public function __construct(string $name, array $permissions)
-    {
-        $this->name = $name;
-        $this->permissions = $permissions;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return string
@@ -67,5 +43,27 @@ class Role
         $this->permissions = $permissions;
     }
 
+    public function setPermissionsFromJSON(string $json) : void
+    {
+        $this->permissions = json_decode($json);
+    }
 
+    public function getPermissionsJSON() : string
+    {
+        return json_encode($this->permissions);
+    }
+
+
+    protected static function getTableName(): string
+    {
+        return 'roles';
+    }
+
+    protected static function getFields(): array
+    {
+        return [
+            'name' => new DatabaseField('setName', 'getName', DatabaseField::TYPE_STRING),
+            'permissions' => new DatabaseField('setPermissionsFromJSON', 'getPermissionsJSON', DatabaseField::TYPE_STRING)
+        ];
+    }
 }

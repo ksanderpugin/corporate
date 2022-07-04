@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url("/styles/fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: italic;
+    font-weight: 300;
+    font-display: swap;
+    src: url("/styles/fonts/Roboto-LightItalic.ttf");
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("/styles/fonts/Roboto-Medium.ttf");
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: italic;
+    font-weight: 500;
+    font-display: swap;
+    src: url("/styles/fonts/Roboto-MediumItalic.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 14pt;
+}
+
+input, button, textarea, select {
+    font-size: inherit;
+    font-family: inherit;
+    border: 1px #9e9d24 solid;
+    border-radius: 0.25em;
+    outline: none;
+    padding: 0.25em 1em;
+}
+
+input:focus, textarea:focus {
+    box-shadow: 0 0 4px #6c6f00;
+}
+
+button {
+    background-color: #9e9d24;
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.auth-form {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,50,0,0.5);
+}
+
+.auth-form > div {
+    width: 20em;
+    background-color: #FFFFFF;
+    border: 1px #6c6f00 solid;
+    text-align: center;
+}
+
+.auth-form h1 {
+    background-color: #6c6f00;
+    color: #FFFFFF;
+    padding: 0.25em;
+    text-align: center;
+    margin-bottom: 0.5em;
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+.auth-form input, .auth-form button {
+    width: 80%;
+    margin: 0.75em 0;
+    box-sizing: border-box;
+}

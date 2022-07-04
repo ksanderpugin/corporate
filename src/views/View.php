@@ -4,27 +4,29 @@ namespace views;
 
 class View
 {
-    private string $templatesPath;
+    public string $bodyTemplate, $title, $lang;
 
-    public function __construct(string $templatesPath)
+    public array $scripts, $styles;
+
+    public function __construct(string $bodyTemplate, string $title, array $scripts = [], array $styles = [], string $lang = 'ru')
     {
-        $this->templatesPath = $templatesPath;
+        $this->bodyTemplate = $bodyTemplate;
+        $this->title = $title;
+        $this->scripts = $scripts;
+        $this->styles = $styles;
+        $this->lang = $lang;
     }
 
-    public function main()
+    public function renderHTML(array $vars = [])
     {
-        $this->renderHTML('main.php');
-    }
-
-    public function renderHTML(string $templateName, array $vars = [])
-    {
-        echo $this->getHTML($templateName, $vars);
+        $body = $this->getHTML($this->bodyTemplate, $vars);
+        echo $this->getHTML('general.php', ['body' => $body]);
     }
 
     public function getHTML(string $templateName, array $vars) : string
     {
 
-        $route = $this->templatesPath . DIRECTORY_SEPARATOR . $templateName;
+        $route = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $templateName;
 
         if (file_exists($route)) {
             extract($vars);
@@ -36,6 +38,6 @@ class View
             return $buffer;
         }
 
-        return "";
+        return 'Set correct body template';
     }
 }

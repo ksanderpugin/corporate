@@ -2,42 +2,13 @@
 
 namespace models;
 
-class User
+use models\database\DatabaseField;
+use models\database\DatabaseModel;
+
+class User extends DatabaseModel
 {
-    private int $id;
-    private string $name, $pin, $key;
+    private string $name, $pin, $key = '';
     private \models\Role $role;
-
-    /**
-     * User constructor.
-     * @param string $name
-     * @param string $pin
-     * @param Role $role
-     */
-    public function __construct(string $name, string $pin, Role $role, int $id = 0, string $key)
-    {
-        $this->name = $name;
-        $this->pin = $pin;
-        $this->role = $role;
-        $this->id = $id;
-        $this->key = $key;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    private function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return string
@@ -103,5 +74,39 @@ class User
         $this->key = $key;
     }
 
+    /**
+     * @return int
+     */
+    public function getRoleId() : int
+    {
+        return $this->role->getId();
+    }
 
+    /**
+     * @throws \exceptions\DbQueryException
+     * @throws \exceptions\DatabaseModelException
+     * @param int $id
+     */
+    public function setRoleFromId(int $id): void
+    {
+        $role = Role::getById($id);
+        if (!is_null($role))
+            $this->role = $role;
+    }
+
+
+    protected static function getTableName(): string
+    {
+        return 'users';
+    }
+
+    protected static function getFields(): array
+    {
+        return [
+            'name' => new DatabaseField('setName', 'getName', DatabaseField::TYPE_STRING),
+            'pin' => new DatabaseField('setPin', 'getPin', DatabaseField::TYPE_STRING),
+            'key' => new DatabaseField('setKey', 'getKey', DatabaseField::TYPE_STRING),
+            'role_id' => new DatabaseField('setRoleFromId', 'getRoleId', DatabaseField::TYPE_INT)
+        ];
+    }
 }

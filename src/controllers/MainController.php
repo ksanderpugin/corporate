@@ -2,10 +2,15 @@
 
 namespace controllers;
 
+
+use models\Account;
+use services\SecurityService;
+
 class MainController
 {
     public function main() {
-        echo "Hello world!";
-        \services\UserService::getAll();
+
+        echo "Hello! This is main page.";
+
     }
 }

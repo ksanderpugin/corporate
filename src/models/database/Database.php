@@ -1,7 +1,7 @@
 <?php
 
 
-namespace services;
+namespace models\database;
 
 
 class Database

@@ -31,11 +31,16 @@ if (!$isRouteFound) {
 }
 
 try {
+    if ($className == \controllers\APIController::class) {
+        //
+    } else {
+        if (is_null(\services\SecurityService::getAuthAccount()) && $className != \controllers\AuthController::class) {
+            header('Location:/auth');
+            exit;
+        }
+    }
     $controller = new $className();
     $controller->$action(...$data);
-
-//} catch (\src\Models\Exceptions\DBException $e) {
-//    exit('DB Error: ' . $e->getMessage());
 } catch (\Exception $e) {
     exit($e->getMessage());
 }
